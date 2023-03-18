@@ -26,18 +26,13 @@ function App() {
 
   return (
     <div className="App">
-    
-
-      <div className='container'>
+     <div className='container'>
         <form>
           <input type="text" value={result} />
         </form>
-
-        <div className='keypad'>
+             <div className='keypad'>
           <button onClick={clear} id='clear' className='square'>AC</button>
           <button onClick={handleDelete} className='highlight'>DEL</button>
-
-          
           <button name='/' onClick={handleClick} className='highlight'>&divide;</button>
           <button name="7" onClick={handleClick}>7</button>
           <button name="8" onClick={handleClick}>8</button>

@@ -35,11 +35,6 @@ body {
   
 }
 
-h1 {
-  position: absolute;
-  top: 0px;
-}
-
 .keypad {
   display: grid;
   height: 100%;
