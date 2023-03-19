@@ -5,15 +5,63 @@ function App() {
   const [result, setResult] = useState('');
 
   const handleClick = (e) => {
-    setResult(result.concat(e.target.name));
-  }
-
+    const clickedValue = e.target.name;
+    if (clickedValue === "0" && result === "0" && !result.includes(".")) {
+      return;
+    } else if (result === "" && /[\+\-\*\/]/.test(clickedValue)) {
+      return;
+    }
+    setResult(result.concat(clickedValue));
+  };
   const clear = () => {
     setResult("");
   }
 
   const handleDelete = () => {
     setResult(result.slice(0, -1));
+  }
+ 
+
+  const persenClick = () => {
+    const lastIndex = result.length - 1;
+    const operatorIndex = result.search(/[\+\-\*\/]/);
+
+    if (operatorIndex === -1) {
+      // If there is no operator, calculate the percentage of the current number
+      setResult(parseFloat(result) / 100);
+    } else {
+      // If there is an operator, calculate the percentage based on the previous and current numbers
+      const prevNum = result.slice(0, operatorIndex);
+      const currNum = result.slice(operatorIndex + 1, lastIndex + 1);
+
+      if (!currNum) {
+        // If the current number is empty, do nothing
+        return;
+      }
+
+      const operator = result.charAt(operatorIndex);
+
+      let percentage;
+
+      switch (operator) {
+        case '+':
+          percentage = parseFloat(prevNum) + (parseFloat(currNum) * parseFloat(prevNum) / 100);
+          break;
+        case '-':
+          percentage = parseFloat(prevNum) - (parseFloat(currNum) * parseFloat(prevNum) / 100);
+          break;
+        case '*':
+          percentage = parseFloat(prevNum) * (parseFloat(currNum) / 100);
+          break;
+        case '/':
+          percentage = parseFloat(prevNum) / (parseFloat(currNum) / 100);
+          break;
+        default:
+          break;
+      }
+
+      setResult(percentage.toString());
+    }
   }
 
   const calculate = () => {
@@ -24,15 +72,19 @@ function App() {
     }
   }
 
+
   return (
     <div className="App">
      <div className='container'>
+     
         <form>
           <input type="text" value={result} />
         </form>
              <div className='keypad'>
-          <button onClick={clear} id='clear' className='square'>AC</button>
+          {/* <button onClick={clear} id='clear' className='square'>AC</button> */}
+          <button  onClick={clear} className='highlight'>AC</button>
           <button onClick={handleDelete} className='highlight'>DEL</button>
+          <button  onClick={persenClick} className='highlight'>%</button>
           <button name='/' onClick={handleClick} className='highlight'>&divide;</button>
           <button name="7" onClick={handleClick}>7</button>
           <button name="8" onClick={handleClick}>8</button>
@@ -49,6 +101,7 @@ function App() {
           <button name="0" onClick={handleClick}  className='square'>0</button>
           <button name="." onClick={handleClick}>.</button>
           <button onClick={calculate} id='equal' className='square'>=</button>
+        
         </div>
 
       </div>
