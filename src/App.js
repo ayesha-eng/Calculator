@@ -1,4 +1,7 @@
 import './App.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+
 import { useState } from 'react';
 
 function App() {
@@ -76,13 +79,13 @@ function App() {
   return (
     <div className="App">
      <div className='container'>
-     
+     <FontAwesomeIcon icon={faBars} style={{ position: 'absolute',  left: '600', margin: '10px' , color: 'white' }} />
+      
         <form>
-          <input type="text" value={result} />
+          <input type="text" value={result} disabled  />
         </form>
              <div className='keypad'>
-          {/* <button onClick={clear} id='clear' className='square'>AC</button> */}
-          <button  onClick={clear} className='highlight'>AC</button>
+          <button  onClick={clear} id='clear'className='highlight'>C</button>
           <button onClick={handleDelete} className='highlight'>DEL</button>
           <button  onClick={persenClick} className='highlight'>%</button>
           <button name='/' onClick={handleClick} className='highlight'>&divide;</button>
@@ -98,10 +101,9 @@ function App() {
           <button name="2" onClick={handleClick}>2</button>
           <button name="3" onClick={handleClick}>3</button>
           <button name="+" onClick={handleClick } className='highlight'>+</button>
-          <button name="0" onClick={handleClick}  className='square'>0</button>
+          <button name="0" onClick={handleClick}>0</button>
           <button name="." onClick={handleClick}>.</button>
-          <button onClick={calculate} id='equal' className='square'>=</button>
-        
+         <button onClick={calculate} id='equal' className='highlight'>=</button>
         </div>
 
       </div>
